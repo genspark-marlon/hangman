@@ -99,13 +99,12 @@ public class Game {
   }
 
   public void getGameResults () {
-    this.pStream.println("Your incorrect guesses:" + this.incorrectGuesses);
-    this.pStream.println("Your correct guesses thus far:" + this.userGuess);
+    this.pStream.println("Your incorrect guesses: " + this.incorrectGuesses.toString());
+    this.pStream.println("Your correct guesses thus far: " + this.userGuess.toString());
   }
 
   public void initialize () {
     this.generateRandomWord();
-    System.out.println("Game is about to start- guess this word: " + this.randomWord);
     this.playHangman();
   }
 
