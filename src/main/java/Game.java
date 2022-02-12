@@ -1,7 +1,7 @@
 import java.io.InputStream;
 import java.io.PrintStream;
-import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.InputMismatchException;
 
@@ -18,9 +18,15 @@ public class Game {
   private Scanner iStream;
   private PrintStream pStream;
 
-  public Game(InputStream istream, PrintStream pstream) {
-    this.iStream = new Scanner(istream);
-    this.pStream = pstream;
+  public Game(InputStream iStream, PrintStream pStream) {
+    this.iStream = new Scanner(iStream);
+    this.pStream = pStream;
+    this.letterOccurrences = new HashMap<Character, Integer>();
+    this.letterIndexes = new HashMap<Character, ArrayList<Integer>>();
+    this.userGuess = new StringBuilder();
+    this.incorrectGuesses = new StringBuilder();
+    this.maxGuesses = 8;
+    this.guessCount = 0;
   }
 
   public Game () {
@@ -38,40 +44,50 @@ public class Game {
     }
   }
 
-  public void incrementGuessCount () {
+  public int incrementGuessCount () {
     this.guessCount++;
+    return this.guessCount;
   }
 
-  public void getUserGuess () {
+  public String getUserGuess () {
     this.pStream.println(String.format("You've got %s guesses left. Take a guess.", this.maxGuesses - this.guessCount));
     this.tempUserGuess = this.iStream.nextLine();
     this.judgeUserGuess();
+    return this.tempUserGuess;
   }
 
-  public void judgeUserGuess () {
+  public String judgeUserGuess () {
+    String result = "";
     if (!this.randomWord.contains(this.tempUserGuess)) {
-      this.pStream.println("Your guess was incorrect.");
+      result = "Your guess was incorrect.";
+      this.pStream.println(result);
       this.insertIncorrectGuess();
     } else {
-      this.pStream.println("Your guess was correct.");
+      result = "Your guess was correct.";
+      this.pStream.println(result);
       this.insertCorrectGuess();
     }
     this.getGameResults();
+    return result;
   }
 
-  public void insertIncorrectGuess () {
+  public String insertIncorrectGuess () {
     this.incorrectGuesses.append(this.tempUserGuess);
     this.guessCount++;
+    return this.tempUserGuess;
   }
 
-  public void insertCorrectGuess () {
-    while (this.letterOccurrences.get(this.tempUserGuess.charAt(0)) > 0) {
-      ArrayList<Integer> listOfIndexes = this.letterIndexes.get(this.tempUserGuess.charAt(0));
-      int firstOccurence = listOfIndexes.get(0);
-      this.userGuess.replace(firstOccurence, firstOccurence + 1, this.tempUserGuess);
-      listOfIndexes.remove(0);
-      this.letterOccurrences.replace(this.tempUserGuess.charAt(0), this.letterOccurrences.get(this.tempUserGuess.charAt(0)) - 1);
+  public String insertCorrectGuess () {
+    if (!this.letterOccurrences.isEmpty()) {
+      while (this.letterOccurrences.get(this.tempUserGuess.charAt(0)) > 0) {
+        ArrayList<Integer> listOfIndexes = this.letterIndexes.get(this.tempUserGuess.charAt(0));
+        int firstOccurence = listOfIndexes.get(0);
+        this.userGuess.replace(firstOccurence, firstOccurence + 1, this.tempUserGuess);
+        listOfIndexes.remove(0);
+        this.letterOccurrences.replace(this.tempUserGuess.charAt(0), this.letterOccurrences.get(this.tempUserGuess.charAt(0)) - 1);
+      }
     }
+    return this.tempUserGuess;
   }
 
   public void generateRandomWord () {
@@ -97,7 +113,20 @@ public class Game {
     }
   }
 
+  // method for testing only
+  public void setRandomWord (String str) {
+    this.randomWord = str;
+  }
+
+  // method for testing only
+  public void setTempUserGuess (String str) {
+    this.tempUserGuess = str;
+  }
+
   public void getGameResults () {
+    System.out.println(this.incorrectGuesses);
+    System.out.println(this.userGuess);
+    System.out.println(this.guessCount);
     if (this.guessCount == 1) {
       this.pStream.println("\n_________" + "\n|" + "\n|" + "\n|" + "\n|" + "\n|" + "\n|_______________________\n");
     } else if (this.guessCount == 2) {
