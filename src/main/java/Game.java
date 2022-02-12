@@ -42,7 +42,6 @@ public class Game {
     this.guessCount++;
   }
 
-
   public void getUserGuess () {
     this.pStream.println(String.format("You've got %s guesses left. Take a guess.", this.maxGuesses - this.guessCount));
     this.tempUserGuess = this.iStream.nextLine();
@@ -99,6 +98,24 @@ public class Game {
   }
 
   public void getGameResults () {
+    if (this.guessCount == 1) {
+      this.pStream.println("\n_________" + "\n|" + "\n|" + "\n|" + "\n|" + "\n|" + "\n|_______________________\n");
+    } else if (this.guessCount == 2) {
+      this.pStream.println("\n_________" + "\n|                   |" + "\n|" + "\n|" + "\n|" + "\n|" + "\n|_______________________\n");
+    } else if (this.guessCount == 3) {
+      this.pStream.println("\n_________" + "\n|                   |" + "\n|                  O" + "\n|" + "\n|" + "\n|" + "\n|_______________________\n");
+    } else if (this.guessCount == 4) {
+      this.pStream.println("\n_________" + "\n|                   |" + "\n|                  O" + "\n|                   |" + "\n|" + "\n|" + "\n|_______________________\n");
+    } else if (this.guessCount == 5) {
+      this.pStream.println("\n_________" + "\n|                   |" + "\n|                  O" + "\n|               ---|" + "\n|" + "\n|" + "\n|_______________________\n");
+    } else if (this.guessCount == 6) {
+      this.pStream.println("\n_________" + "\n|                   |" + "\n|                  O" + "\n|               ---|---" + "\n|" + "\n|" + "\n|_______________________\n");
+    } else if (this.guessCount == 7) {
+      this.pStream.println("\n_________" + "\n|                   |" + "\n|                  O" + "\n|               ---|---" + "\n|                  /" + "\n|                /" + "\n|_______________________\n");
+    } else if (this.guessCount == 8) {
+      this.pStream.println("\n_________" + "\n|                   |" + "\n|                  O" + "\n|               ---|---" + "\n|                  /\\" + "\n|                /    \\" + "\n|_______________________");
+    }
+
     this.pStream.println("Your incorrect guesses: " + this.incorrectGuesses.toString());
     this.pStream.println("Your correct guesses thus far: " + this.userGuess.toString());
   }
