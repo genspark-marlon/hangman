@@ -47,6 +47,33 @@ public class GameTest {
     assertEquals(expected, actual);
   }
 
+  @Test
+  public void insertIncorrectGuessTest () {
+    this.GameTest = new Game(System.in, System.out);
+    this.GameTest.setTempUserGuess("o");
+    String expected = "o";
+    String actual = this.GameTest.insertIncorrectGuess();
+    assertEquals(expected, actual);
+  }
+
+  @Test
+  public void insertCorrectGuessTest () {
+    this.GameTest = new Game(System.in, System.out);
+    this.GameTest.setTempUserGuess("o");
+    String expected = "o";
+    String actual = this.GameTest.insertCorrectGuess();
+    assertEquals(expected, actual);
+  }
+
+  @Test
+  public void getGameResultsTest () {
+    this.GameTest = new Game(System.in, System.out);
+    this.GameTest.setGuessCount(4);
+    String expected = "\n_________" + "\n|                   |" + "\n|                  O" + "\n|                   |" + "\n|" + "\n|" + "\n|_______________________\n";
+    String actual = this.GameTest.getGameResults();
+    assertEquals(expected, actual);
+  }
+
   @AfterEach
   public void destroyTest () {
     this.iStream = null;

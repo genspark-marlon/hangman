@@ -113,45 +113,45 @@ public class Game {
     }
   }
 
-  // method for testing only
-  public void setRandomWord (String str) {
-    this.randomWord = str;
-  }
-
-  // method for testing only
-  public void setTempUserGuess (String str) {
-    this.tempUserGuess = str;
-  }
-
-  public void getGameResults () {
-    System.out.println(this.incorrectGuesses);
-    System.out.println(this.userGuess);
-    System.out.println(this.guessCount);
+  public String getGameResults () {
+    String result = "";
     if (this.guessCount == 1) {
-      this.pStream.println("\n_________" + "\n|" + "\n|" + "\n|" + "\n|" + "\n|" + "\n|_______________________\n");
+      result = "\n_________" + "\n|" + "\n|" + "\n|" + "\n|" + "\n|" + "\n|_______________________\n";
+      this.pStream.println(result);
     } else if (this.guessCount == 2) {
-      this.pStream.println("\n_________" + "\n|                   |" + "\n|" + "\n|" + "\n|" + "\n|" + "\n|_______________________\n");
+      result = "\n_________" + "\n|                   |" + "\n|" + "\n|" + "\n|" + "\n|" + "\n|_______________________\n";
+      this.pStream.println(result);
     } else if (this.guessCount == 3) {
-      this.pStream.println("\n_________" + "\n|                   |" + "\n|                  O" + "\n|" + "\n|" + "\n|" + "\n|_______________________\n");
+      result = "\n_________" + "\n|                   |" + "\n|                  O" + "\n|" + "\n|" + "\n|" + "\n|_______________________\n";
+      this.pStream.println(result);
     } else if (this.guessCount == 4) {
-      this.pStream.println("\n_________" + "\n|                   |" + "\n|                  O" + "\n|                   |" + "\n|" + "\n|" + "\n|_______________________\n");
+      result = "\n_________" + "\n|                   |" + "\n|                  O" + "\n|                   |" + "\n|" + "\n|" + "\n|_______________________\n";
+      this.pStream.println(result);
     } else if (this.guessCount == 5) {
-      this.pStream.println("\n_________" + "\n|                   |" + "\n|                  O" + "\n|               ---|" + "\n|" + "\n|" + "\n|_______________________\n");
+      result = "\n_________" + "\n|                   |" + "\n|                  O" + "\n|               ---|" + "\n|" + "\n|" + "\n|_______________________\n";
+      this.pStream.println(result);
     } else if (this.guessCount == 6) {
-      this.pStream.println("\n_________" + "\n|                   |" + "\n|                  O" + "\n|               ---|---" + "\n|" + "\n|" + "\n|_______________________\n");
+      result = "\n_________" + "\n|                   |" + "\n|                  O" + "\n|               ---|---" + "\n|" + "\n|" + "\n|_______________________\n";
+      this.pStream.println(result);
     } else if (this.guessCount == 7) {
-      this.pStream.println("\n_________" + "\n|                   |" + "\n|                  O" + "\n|               ---|---" + "\n|                  /" + "\n|                /" + "\n|_______________________\n");
+      result = "\n_________" + "\n|                   |" + "\n|                  O" + "\n|               ---|---" + "\n|                  /" + "\n|                /" + "\n|_______________________\n";
+      this.pStream.println(result);
     } else if (this.guessCount == 8) {
-      this.pStream.println("\n_________" + "\n|                   |" + "\n|                  O" + "\n|               ---|---" + "\n|                  /\\" + "\n|                /    \\" + "\n|_______________________");
+      result = "\n_________" + "\n|                   |" + "\n|                  O" + "\n|               ---|---" + "\n|                  /\\" + "\n|                /    \\" + "\n|_______________________";
+      this.pStream.println(result);
     }
-
     this.pStream.println("Your incorrect guesses: " + this.incorrectGuesses.toString());
     this.pStream.println("Your correct guesses thus far: " + this.userGuess.toString());
+    return result;
   }
 
   public void initialize () {
     this.generateRandomWord();
     this.playHangman();
+  }
+
+  public void shutdown () {
+    System.out.println("The game is over because you've lost or won.");
   }
 
   public void playHangman () {
@@ -161,7 +161,20 @@ public class Game {
     this.shutdown();
   }
 
-  public void shutdown () {
-    System.out.println("The game is over because you've lost or won.");
+  // method for testing only
+  public void initializeTest () {
+    this.playHangman();
+  }
+  // method for testing only
+  public void setRandomWord (String str) {
+    this.randomWord = str;
+  }
+  // method for testing only
+  public void setTempUserGuess (String str) {
+    this.tempUserGuess = str;
+  }
+  // method for testing only
+  public void setGuessCount (int num) {
+    this.guessCount = num;
   }
 }
